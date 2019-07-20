@@ -39,6 +39,19 @@ var sema = {
       "cursorPos": cursorPos
     });
     return 0;
+  },
+  injectWidget: (code) => {
+    postMessage({
+      "func": "injectWidget",
+      "code": code,
+    });
+    return 0;
+  },
+  removeWidget: () => {
+    postMessage({
+      "func": "removeWidget",
+    });
+    return 0;
   }
 };
 `);

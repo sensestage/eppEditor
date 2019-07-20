@@ -28,6 +28,10 @@
   /* resize: both; */
 }
 
+div.code-in-the-making{
+    background: #000;
+}
+
 #editor2 {
   /* float:left; */
   /* height:500px; */

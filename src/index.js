@@ -96,7 +96,16 @@ machineLearningWorker.onmessage = (e) => {
         "injectCode": (data) => {
             console.log( "injectCode", data );
             injectCode( data.code, data.cursorPos );
+        },
+        "injectWidget": (data) => {
+            console.log( "injectWidget", data );
+            injectWidget( data.code );
+        },
+        "removeWidget": () => {
+            console.log( "removeWidget");
+            removeWidget();
         }
+        
     };
     responders[e.data.func](e.data);
   }
@@ -581,4 +590,21 @@ function injectCode( code, cursorPos ){
     console.log( cursorInfo );
     editor1.replaceRange( code, cursorInfo );
     editor1.setCursor( { line: cursorInfo.line, pos: cursorInfo.ch + cursorPos } );
+}
+
+let widget;
+
+function injectWidget( contents ){
+    let cursorInfo = editor1.getCursor();    
+    var msg = document.createElement("div");
+    msg.appendChild(document.createTextNode(contents));
+    msg.className = "code-in-the-making";
+    removeWidget();
+    widget = editor1.addLineWidget(cursorInfo.line, msg, {coverGutter: false, noHScroll: true});
+}
+
+function removeWidget(){
+    if ( typeof widget !== 'undefined' ){
+        editor1.removeLineWidget( widget );
+    }
 }
