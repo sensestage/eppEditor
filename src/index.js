@@ -292,14 +292,15 @@ function getBlock(editor) {
     ch: 0
   });
   // highlight executed block by selecting it
-  editor.setSelection({
+  editor.markText({
     line: linePre,
     ch: 0
   }, {
     line: linePost + 1,
     ch: 0
+  },{
+        css: "background: rgba(0, 25, 25, .5);"
   });
-
   return code;
 }
 function evalLiveCodeEditorExpression() {
@@ -329,13 +330,16 @@ function evalModelEditorExpression() {
     let cursorInfo = editor2.getCursor();
     expression = editor2.getDoc().getLine(cursorInfo.line);
     // highlight executed line by selecting it
-    editor2.setSelection({
+    editor2.markText({
         line: cursorInfo.line,
         ch: 0
     }, {
         line: cursorInfo.line + 1,
         ch: 0
+    },{
+        css: "background: #999"
     });
+   // editor2.setCursor( cursorInfo );
   }
 
   console.log(`DEBUG:Main:evalModelEditorExpression: ${expression}`);
