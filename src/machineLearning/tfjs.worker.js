@@ -31,6 +31,14 @@ var sema = {
       "func": "download",
       "name": name,
     });
+  },
+  injectCode: (code,cursorPos) => {
+    postMessage({
+      "func": "injectCode",
+      "code": code,
+      "cursorPos": cursorPos
+    });
+    return 0;
   }
 };
 `);

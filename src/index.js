@@ -92,6 +92,10 @@ machineLearningWorker.onmessage = (e) => {
           let blob = new Blob([downloadData], {type: "text/plain;charset=utf-8"});
           console.log(blob);
           saveData(blob, `${data.name}.data`);
+        },
+        "injectCode": (data) => {
+            console.log( "injectCode", data );
+            injectCode( data.code, data.cursorPos );
         }
     };
     responders[e.data.func](e.data);
@@ -567,4 +571,14 @@ function loadTest() {
     // console.log(test[1]);
   }
 
+}
+
+
+// code injection
+
+function injectCode( code, cursorPos ){
+    let cursorInfo = editor1.getCursor();
+    console.log( cursorInfo );
+    editor1.replaceRange( code, cursorInfo );
+    editor1.setCursor( { line: cursorInfo.line, pos: cursorInfo.ch + cursorPos } );
 }
