@@ -589,7 +589,8 @@ function injectCode( code, cursorPos ){
     let cursorInfo = editor1.getCursor();
     console.log( cursorInfo );
     editor1.replaceRange( code, cursorInfo );
-    editor1.setCursor( { line: cursorInfo.line, pos: cursorInfo.ch + cursorPos } );
+    editor1.setCursor( cursorInfo.line, cursorInfo.ch + cursorPos );
+    console.log( cursorInfo );
 }
 
 let widget;
