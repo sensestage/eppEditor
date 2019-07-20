@@ -291,6 +291,14 @@ function getBlock(editor) {
     line: linePost + 1,
     ch: 0
   });
+  // highlight executed block by selecting it
+  editor.setSelection({
+    line: linePre,
+    ch: 0
+  }, {
+    line: linePost + 1,
+    ch: 0
+  });
 
   return code;
 }
@@ -320,7 +328,16 @@ function evalModelEditorExpression() {
   if (expression == "") {
     let cursorInfo = editor2.getCursor();
     expression = editor2.getDoc().getLine(cursorInfo.line);
+    // highlight executed line by selecting it
+    editor2.setSelection({
+        line: cursorInfo.line,
+        ch: 0
+    }, {
+        line: cursorInfo.line + 1,
+        ch: 0
+    });
   }
+
   console.log(`DEBUG:Main:evalModelEditorExpression: ${expression}`);
   machineLearningWorker.postMessage({
     "eval": expression
