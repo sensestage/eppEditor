@@ -35,6 +35,7 @@ import './style/editors.css';
 import * as CodeMirror from 'codemirror/lib/codemirror.js';
 import 'codemirror/mode/javascript/javascript';
 import 'codemirror/theme/idea.css';
+import 'codemirror/theme/cobalt.css'; // Marije: monokai does not work for me
 import 'codemirror/theme/monokai.css';
 import 'codemirror/theme/oceanic-next.css';
 // import 'codemirror/theme/abcdef.css';
@@ -136,7 +137,7 @@ function createEditor1() {
   editor1 = CodeMirror(document.getElementById('editor1'), {
     // theme: "abcdef",
     value: defaultEditorCode1,
-    theme: "monokai",
+    theme: "cobalt", // Marije: monokai does not work for me
     lineNumbers: true,
     // mode:  "javascript",
     lineWrapping: true,
@@ -149,8 +150,12 @@ function createEditor1() {
       // ["Cmd--"]: () => decreaseVolume(),
       // ["Cmd-="]: () => increaseVolume(),
       // ["Cmd-]"]: () => changeSynth()
-    }
-  });
+    },
+    // Marije's customizations:
+    showCursorWhenSelecting: true,
+    cursorBlinkRate: 400,
+    cursorHeight:1.2
+ });
   editor1.setSize('100%', '100%');
   editor1.setOption("vimMode", false);
 }
@@ -172,8 +177,11 @@ function createEditor2() {
       ["Cmd-Enter"]: () => evalModelEditorExpressionBlock(),
       ["Shift-Enter"]: () => evalModelEditorExpression(),
       ["Ctrl-Enter"]: () => evalModelEditorExpressionBlock(),
-    }
-
+    },
+    // Marije's customizations:
+    showCursorWhenSelecting: true,
+    cursorBlinkRate: 400,
+    cursorHeight:1.2
   });
   editor2.setSize('100%', '100%');
 }
