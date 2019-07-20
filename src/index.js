@@ -48,6 +48,8 @@ let audio;
 
 let editor1, editor2;
 
+let marker1, marker2; // should actually match the right editor, but that's too complicated for now
+
 let parser;
 
 let compileTS = 0;
@@ -292,7 +294,14 @@ function getBlock(editor) {
     ch: 0
   });
   // highlight executed block by selecting it
-  editor.markText({
+  if (typeof marker1 !== 'undefined' ) {
+        marker1.clear();
+  }
+  if (typeof marker2 !== 'undefined' ) {
+        marker2.clear();
+  }
+  
+  marker1 = editor.markText({
     line: linePre,
     ch: 0
   }, {
@@ -330,7 +339,13 @@ function evalModelEditorExpression() {
     let cursorInfo = editor2.getCursor();
     expression = editor2.getDoc().getLine(cursorInfo.line);
     // highlight executed line by selecting it
-    editor2.markText({
+    if (typeof marker2 !== 'undefined' ) {
+        marker2.clear();
+    }
+    if (typeof marker1 !== 'undefined' ) {
+        marker1.clear();
+    }
+    marker2 = editor2.markText({
         line: cursorInfo.line,
         ch: 0
     }, {
